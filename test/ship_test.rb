@@ -18,11 +18,11 @@ class ShipTest < Minitest::Test
   def test_it_can_be_hit_and_sunk
     assert_equal false, @cruiser.sunk?
 
-    cruiser.hit
+    @cruiser.hit
     assert_equal 2, @cruiser.health
-    #
-    # cruiser.hit
-    # cruiser.hit
-    # assert_equal true, @cruiser.sunk?
+
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal true, @cruiser.sunk?
   end
 end
