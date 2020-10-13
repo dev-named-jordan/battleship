@@ -25,4 +25,13 @@ class Cell
     @taken_fire = true
     @ship.hit
   end
+
+  def render
+    if fired_upon?
+      "M"
+
+    else
+       "."
+    end
+  end
 end
