@@ -21,7 +21,7 @@ class Cell
     @taken_fire == true
   end
 
-  def fired_upon
+  def fire_upon
     @taken_fire = true
     @ship.hit
   end

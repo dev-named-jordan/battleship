@@ -29,7 +29,7 @@ class CellTest < Minitest::Test
     cell.place_ship(cruiser)
     assert_equal false, cell.fired_upon?
 
-    cell.fired_upon
+    cell.fire_upon
     assert_equal 2, cell.ship.health
     assert_equal true, cell.fired_upon?
   end
