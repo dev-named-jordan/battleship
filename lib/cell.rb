@@ -23,6 +23,22 @@ class Cell
 
   def fire_upon
     @taken_fire = true
-    @ship.hit
+      if @ship
+        @ship.hit
+      end
+  end
+
+  def render(show_ship_coordinates = false)
+    if fired_upon? && empty?
+      "M"
+    elsif show_ship_coordinates == true && @ship != nil
+      "S"
+    elsif @ship != nil && @ship.sunk?
+      "X"
+    elsif fired_upon? && !empty?
+      "H"
+    else
+       "."
+    end
   end
 end
