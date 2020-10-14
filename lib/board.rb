@@ -28,8 +28,29 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  def valid_placement?(vessel, coordinates)
-    vessel.length == coordinates.length
+  def consecutive_letters?(coordinates)
+    letter_array = coordinates.map do |coordinate|
+      coordinate[0]
+    end
+    "AABBCCDD".include?(letter_array.join) || "ABCD".include?(letter_array.join) ||
+    "AAABBBCCCDDD".include?(letter_array.join) ||
+    "AAAABBBBCCCCDDDD".include?(letter_array.join)
   end
+
+  def consecutive_numbers?(coordinates)
+    number_array = coordinates.map do |coordinate|
+      coordinate[1]
+    end
+    "1234".include?(number_array.join) || "11223344".include?(number_array.join) ||
+    "111222333444".include?(number_array.join) ||
+    "1111222233334444".include?(number_array.join)
+  end
+
+
+  # def valid_placement?(vessel, coordinates)
+  #   if vessel.length == coordinates.length
+  #   elsif coordinates.map do |coordinate|
+  #     coordinate[0]
+  # end
 
 end
