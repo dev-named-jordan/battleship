@@ -46,11 +46,8 @@ class Board
     "1111222233334444".include?(number_array.join)
   end
 
-
-  # def valid_placement?(vessel, coordinates)
-  #   if vessel.length == coordinates.length
-  #   elsif coordinates.map do |coordinate|
-  #     coordinate[0]
-  # end
+  def valid_placement?(vessel, coordinates)
+    vessel.length == coordinates.length && (consecutive_numbers?(coordinates) && consecutive_letters?(coordinates))
+  end
 
 end

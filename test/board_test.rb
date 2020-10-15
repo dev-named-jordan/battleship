@@ -35,28 +35,27 @@ class BoardTest < Minitest::Test
   def test_consecutive_numbers
     board = Board.new
 
-    assert_equal true, board.consecutive_letters?(["A1", "A2"])
-    assert_equal true, board.consecutive_letters?(["A2", "A3"])
-    assert_equal false, board.consecutive_letters?(["A1", "A3"])
-    assert_equal false, board.consecutive_letters?(["A4", "A1"])
+    assert_equal true, board.consecutive_numbers?(["A1", "A2"])
+    assert_equal true, board.consecutive_numbers?(["A2", "A3"])
+    assert_equal false, board.consecutive_numbers?(["A1", "A3"])
+    assert_equal false, board.consecutive_numbers?(["A4", "A1"])
   end
 
   def test_valid_placement?
-    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     actual = board.valid_placement?(cruiser, ["A1", "A2"])
     assert_equal false, actual
 
-    actual2= board.valid_placement?(cruiser, ["A1", "A2", "A3"])
+    actual2 = board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, actual2
     actual3 = board.valid_placement?(cruiser, ["A1", "A2", "A4"])
     assert_equal false, actual3
     actual4 = board.valid_placement?(submarine, ["B1", "C1"])
     assert_equal true, actual4
     actual5 = board.valid_placement?(submarine, ["A1", "C1"])
-    assert_equal  false, actual
+    assert_equal  false, actual5
     actual6 = board.valid_placement?(submarine, ["C1", "B1"])
     assert_equal false, actual6
     actual7 = board.valid_placement?(cruiser, ["A3", "A2", "A1"])
