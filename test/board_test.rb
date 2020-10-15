@@ -41,6 +41,18 @@ class BoardTest < Minitest::Test
     assert_equal false, board.consecutive_numbers?(["A4", "A1"])
   end
 
+  def test_no_diagonals?
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    actual1 = board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, actual1
+    actual2 = board.valid_placement?(submarine, ["C1", "D1"])
+    assert_equal true, actual2
+  end
+
+
   def test_valid_placement?
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
