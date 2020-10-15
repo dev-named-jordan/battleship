@@ -61,4 +61,9 @@ class Board
     vessel.length == coordinates.length && (consecutive_numbers?(coordinates) && consecutive_letters?(coordinates)) && no_diagonals?(coordinates)
   end
 
+  def place(ship, coordinates)
+    coordinates.each do |coordinate|
+      @cells[coordinate].place_ship(ship)
+    end 
+  end
 end
