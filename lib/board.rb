@@ -22,6 +22,7 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
       }
+    @occupied_cells = []
   end
 
   def valid_coordinate?(coordinate)
@@ -58,12 +59,28 @@ class Board
   end
 
   def valid_placement?(vessel, coordinates)
-    vessel.length == coordinates.length && (consecutive_numbers?(coordinates) && consecutive_letters?(coordinates)) && no_diagonals?(coordinates)
+    vessel.length == coordinates.length &&
+    (consecutive_numbers?(coordinates) &&
+    consecutive_letters?(coordinates)) &&
+    no_diagonals?(coordinates) && no_overlapping?(coordinates)
   end
 
   def place(ship, coordinates)
     coordinates.each do |coordinate|
       @cells[coordinate].place_ship(ship)
-    end 
+    end
+    @occupied_cells << coordinates
+    @occupied_cells = @occupied_cells.flatten
+  end
+
+  def no_overlapping?(coordinates)
+    inclusion_array = coordinates.map do |coordinate|
+      @occupied_cells.include?(coordinate)
+    end
+    if inclusion_array.include?(true)
+      false
+    else
+      true
+    end
   end
 end
