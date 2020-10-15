@@ -60,5 +60,9 @@ class BoardTest < Minitest::Test
     assert_equal false, actual6
     actual7 = board.valid_placement?(cruiser, ["A3", "A2", "A1"])
     assert_equal false, actual7
+    actual8 = board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, actual8
+    actual9 = board.valid_placement?(submarine, ["C2", "D3"])
+    assert_equal false, actual9
   end
 end
