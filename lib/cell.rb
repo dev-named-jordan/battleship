@@ -29,14 +29,14 @@ class Cell
   end
 
   def render(show_ship_coordinates = false)
-    if fired_upon? && empty?
-      "M"
-    elsif show_ship_coordinates == true && @ship != nil
-      "S"
-    elsif @ship != nil && @ship.sunk?
+    if @ship != nil && @ship.sunk?
       "X"
     elsif fired_upon? && !empty?
       "H"
+    elsif show_ship_coordinates == true && @ship != nil
+      "S"
+    elsif fired_upon? && empty?
+      "M"
     else
        "."
     end

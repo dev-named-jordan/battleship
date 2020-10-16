@@ -127,5 +127,19 @@ class BoardTest < Minitest::Test
 
     expected2 = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     assert_equal expected2, board.render(true)
+
+    board.cells.values[0].fire_upon
+    board.cells.values[4].fire_upon
+
+    expected3 = " 1 2 3 4 \nA H S S . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected3, board.render(true)
+    expected4 = " 1 2 3 4 \nA H . . . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected4, board.render
+
+    board.cells.values[1].fire_upon
+    board.cells.values[2].fire_upon
+    expected5 = " 1 2 3 4 \nA X X X . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected5, board.render
+    assert_equal expected5, board.render(true)
   end
 end
