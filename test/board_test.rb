@@ -113,13 +113,19 @@ class BoardTest < Minitest::Test
   def test_create_row
     board = Board.new
     assert_equal ". . . .", board.create_row(0..3)
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal "S S S .", board.create_row(0..3, true)
   end
 
   def test_render
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
-    expected = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
-    assert_equal expected, board.render
+    expected1 = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected1, board.render
+
+    expected2 = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected2, board.render(true)
   end
 end
