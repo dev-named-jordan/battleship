@@ -109,4 +109,17 @@ class BoardTest < Minitest::Test
       assert_equal true, board.no_overlapping?(["B1", "C1"])
       assert_equal false, board.no_overlapping?(["A1", "B1"])
   end
+
+  def test_create_row
+    board = Board.new
+    assert_equal ". . . .", board.create_row(0..3)
+  end
+
+  def test_render
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    expected = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected, board.render
+  end
 end

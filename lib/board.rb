@@ -83,4 +83,18 @@ class Board
       true
     end
   end
+
+  def create_row(range)
+    row1 = @cells.values.slice(range).map do |cell|
+      cell.render
+    end.join(" ")
+  end
+
+  def render(show_ships = false)
+      row1 = create_row(0..3)
+      row2 = create_row(4..7)
+      row3 = create_row(8..11)
+      row4 = create_row(12..15)
+      " 1 2 3 4 \nA " + row1 + " \nB " + row2 + " \nC " + row3 + " \nD " + row4 + " \n"
+  end
 end
