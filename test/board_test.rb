@@ -109,4 +109,37 @@ class BoardTest < Minitest::Test
       assert_equal true, board.no_overlapping?(["B1", "C1"])
       assert_equal false, board.no_overlapping?(["A1", "B1"])
   end
+
+  def test_create_row
+    board = Board.new
+    assert_equal ". . . .", board.create_row(0..3)
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal "S S S .", board.create_row(0..3, true)
+  end
+
+  def test_render
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    expected1 = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected1, board.render
+
+    expected2 = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected2, board.render(true)
+
+    board.cells.values[0].fire_upon
+    board.cells.values[4].fire_upon
+
+    expected3 = " 1 2 3 4 \nA H S S . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected3, board.render(true)
+    expected4 = " 1 2 3 4 \nA H . . . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected4, board.render
+
+    board.cells.values[1].fire_upon
+    board.cells.values[2].fire_upon
+    expected5 = " 1 2 3 4 \nA X X X . \nB M . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected5, board.render
+    assert_equal expected5, board.render(true)
+  end
 end
