@@ -55,11 +55,13 @@ class Board
     number_array = coordinates.map do |coordinate|
       coordinate[1]
     end
-    first_two = (letter_array[0] == letter_array[1] || number_array[0] == number_array[1])
+    first_two_letters = letter_array[0] == letter_array[1]
+    first_two_numbers = number_array[0] == number_array[1]
     if number_array.length == 3
       last_letters = (letter_array[1] == letter_array[2])
       last_numbers = (number_array[1] == number_array[2])
-      (first_two == true && last_letters == true) || (first_two == true && last_numbers == true)
+      (first_two_letters == true && last_letters == true) || (first_two_numbers == true && last_numbers == true)
+
 # add no diagnols for first two letters
     else
       first_two

@@ -26,13 +26,11 @@ class Turn
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     testing_coordinates = Array.new
-# require "pry"; binding.pry
     until @board.valid_placement?(cruiser, testing_coordinates)
       sample_coordinates = @board.cells.keys.sample(3)
       testing_coordinates = sample_coordinates
     end
     testing_coordinates
-    require "pry"; binding.pry
   end
 
   def human_setup
