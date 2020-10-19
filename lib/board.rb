@@ -60,11 +60,10 @@ class Board
     if number_array.length == 3
       last_letters = (letter_array[1] == letter_array[2])
       last_numbers = (number_array[1] == number_array[2])
-      (first_two_letters == true && last_letters == true) || (first_two_numbers == true && last_numbers == true)
-
-# add no diagnols for first two letters
+      (first_two_letters == true && last_letters == true) ||
+      (first_two_numbers == true && last_numbers == true)
     else
-      first_two
+      first_two_letters == true || first_two_numbers == true
     end
   end
 
