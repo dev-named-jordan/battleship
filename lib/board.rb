@@ -1,7 +1,7 @@
 require './lib/cell'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells, :occupied_cells
 
   def initialize#arguments here for vertical/ horizontal
     @cells = {

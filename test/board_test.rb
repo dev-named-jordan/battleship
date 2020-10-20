@@ -52,7 +52,6 @@ class BoardTest < Minitest::Test
     assert_equal true, actual2
   end
 
-
   def test_valid_placement?
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
