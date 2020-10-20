@@ -3,7 +3,7 @@ require './lib/cell'
 class Board
   attr_reader :cells, :occupied_cells
 
-  def initialize#arguments here for vertical/ horizontal
+  def initialize
     @cells = {
       "A1" => Cell.new("A1"),
       "A2" => Cell.new("A2"),

@@ -5,8 +5,8 @@ require './lib/board'
 class BoardTest < Minitest::Test
 
   def test_it_exists_and_has_attributes
-    #Consider adding an argument to Board for vertical and horizontal dimensions.
     board = Board.new
+
     assert_instance_of Board, board
     assert_equal 16, board.cells.keys.length
     assert_equal Cell, board.cells.values[0].class
@@ -23,7 +23,7 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A22")
   end
 
-  def test_consecutive_letters #Make more tests for larger ships.
+  def test_consecutive_letters
     board = Board.new
 
     assert_equal true, board.consecutive_letters?(["A1", "A2"])

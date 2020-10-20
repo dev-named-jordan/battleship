@@ -30,8 +30,6 @@ class Turn
     round
   end
 
-#class Game
-
   def computer_setup
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_submarine = Ship.new("Submarine", 2)
