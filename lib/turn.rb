@@ -35,7 +35,7 @@ class Turn
       sample_coordinates = @computer_board.cells.keys.sample(3)
       cruiser_coordinates = sample_coordinates
     end
-    place(cruiser, cruiser_coordinates)
+    @computer_board.place(@computer_cruiser, cruiser_coordinates)
 
     submarine_coordinates = Array.new
     until @computer_board.valid_placement?(@computer_submarine, submarine_coordinates)
@@ -43,6 +43,7 @@ class Turn
       submarine_coordinates = sample_coordinates
     end
     @computer_board.place(@computer_submarine, submarine_coordinates)
+    require "pry"; binding.pry
   end
 
   def human_setup
@@ -56,12 +57,12 @@ class Turn
   end
 
   def cruiser_setup
-    @player_board.render(true)
+    puts @player_board.render(true)
     puts "Enter the squares for the Cruiser (3 spaces):"
-    cruiser_input = gets.chomp
-    if @player_board.valid_placement?(cruiser, cruiser_input)
-      place_ship(@human_cruiser, cruiser_input)
-      @player_board.render(true)
+    cruiser_coordinates = Array(gets.chomp.upcase.split(" "))
+    if @player_board.valid_placement?(@human_cruiser, cruiser_coordinates)
+      @player_board.place(@human_cruiser, cruiser_coordinates)
+      puts @player_board.render(true)
     else
       puts "Don't you know your own ships?"
       cruiser_setup
@@ -70,13 +71,13 @@ class Turn
 
   def submarine_setup
     puts "Enter the squares for the Submarine (2 spaces):"
-    submarine_input = gets.chomp
-    if @player_board.valid_placement?(@human_submarine, submarine_input)
-      place_ship(@human_submarine, submarine_input)
-      @player_board.render(true)
+    submarine_coordinates = Array(gets.chomp.upcase.split(" "))
+    if @player_board.valid_placement?(@human_submarine, submarine_coordinates)
+      @player_board.place(@human_submarine, submarine_coordinates)
+      puts @player_board.render(true)
     else
       puts "Don't you know your own ships, Capitan?"
-      @player_board.render(true)
+      puts @player_board.render(true)
       submarine_setup
     end
   end
