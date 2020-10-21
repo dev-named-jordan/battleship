@@ -1,2 +1,3 @@
-require './lib/turn'
+require './lib/game'
+
 Game.new.start
