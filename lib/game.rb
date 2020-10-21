@@ -36,13 +36,16 @@ class Game
 
   def end_game
     if @turn.player_points == 5 && @turn.computer_points == 5
-      puts "It's tie!"
+      @turn.final_round_message
+      puts "It's a tie, must've been an error in my programming!"
       start
     elsif @turn.player_points == 5
-      puts "You won!"
+      @turn.final_round_message
+      puts "It seems humans have a chance of survival after all!"
       start
-    elsif @turn.player_points == 5
-      puts "I won!"
+    elsif @turn.computer_points == 5
+      @turn.final_round_message
+      puts "Computer intelligence is superior!"
       start
     else
       start_round

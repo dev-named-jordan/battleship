@@ -69,6 +69,14 @@ class Turn
     puts @player_board.render(true)
   end
 
+  def final_round_message
+    puts "=============COMPUTER BOARD============="
+    puts @computer_board.render(true)
+    puts "==============PLAYER BOARD=============="
+    puts @player_board.render(true)
+  end
+
+
   def round
     top_of_round_message
     player_shoots
