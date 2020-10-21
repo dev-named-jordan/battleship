@@ -1,3 +1,3 @@
-require './lib/turn'
-turn = Turn.new
-turn.start
+require './lib/game'
+
+Game.new.start

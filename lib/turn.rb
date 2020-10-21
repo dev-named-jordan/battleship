@@ -1,61 +1,37 @@
 require './lib/board'
 
 class Turn
-  attr_accessor :board
+  attr_reader :computer_board,        :player_board,    :player_has_fired_at,
+              :computer_has_fired_at, :computer_points, :player_points
+
   def initialize
-    @computer_board = Board.new
-    @player_board = Board.new
-    @player_has_fired_at = []
+    @computer_board        = Board.new
+    @player_board          = Board.new
+    @player_has_fired_at   = []
     @computer_has_fired_at = []
-    @computer_points = 0
-    @player_points = 0
+    @computer_points       = 0
+    @player_points         = 0
+    @computer_cruiser      = Ship.new("Cruiser", 3)
+    @computer_submarine    = Ship.new("Submarine", 2)
+    @human_cruiser         = Ship.new("Cruiser", 3)
+    @human_submarine       = Ship.new("Submarine", 2)
   end
-
-  def start
-    puts "Welcome to BATTLESHIP"
-    puts "Enter p to play. Enter q to quit."
-    input = gets.chomp
-    if input.downcase == "p"
-      setup_game
-    elsif input.downcase != "q"
-      start
-    else
-      exit
-    end
-  end
-
-  def setup_game
-    computer_setup
-    human_setup
-    round
-  end
-
-#class Game
 
   def computer_setup
-    @computer_cruiser = Ship.new("Cruiser", 3)
-    @computer_submarine = Ship.new("Submarine", 2)
-    cruiser_coordinates = Array.new
-    until @computer_board.valid_placement?(@computer_cruiser, cruiser_coordinates)
-      sample_coordinates = @computer_board.cells.keys.sample(3)
-      cruiser_coordinates = sample_coordinates
-    end
-    @computer_board.place(@computer_cruiser, cruiser_coordinates)
+    computer_ship_setup(@computer_cruiser, 3)
+    computer_ship_setup(@computer_submarine, 2)
+  end
 
-    submarine_coordinates = Array.new
-    until @computer_board.valid_placement?(@computer_submarine, submarine_coordinates)
-      sample_coordinates = @computer_board.cells.keys.sample(2)
-      submarine_coordinates = sample_coordinates
+  def computer_ship_setup(ship, length)
+    coordinates = Array.new
+    until @computer_board.valid_placement?(ship, coordinates)
+      sample_coordinates = @computer_board.cells.keys.sample(length)
+      coordinates = sample_coordinates
     end
-    @computer_board.place(@computer_submarine, submarine_coordinates)
+    @computer_board.place(ship, coordinates)
   end
 
   def human_setup
-    @human_cruiser = Ship.new("Cruiser", 3)
-    @human_submarine = Ship.new("Submarine", 2)
-    puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your two ships."
-    puts "The Cruiser is three units long and the Submarine is two units long."
     cruiser_setup
     submarine_setup
   end
@@ -86,15 +62,26 @@ class Turn
     end
   end
 
-  def round
+  def top_of_round_message
     puts "=============COMPUTER BOARD============="
     puts @computer_board.render
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
+  end
+
+  def final_round_message
+    puts "=============COMPUTER BOARD============="
+    puts @computer_board.render(true)
+    puts "==============PLAYER BOARD=============="
+    puts @player_board.render(true)
+  end
+
+
+  def round
+    top_of_round_message
     player_shoots
     computer_shoots
     end_of_round_report
-    end_game
   end
 
   def player_shoots
@@ -120,37 +107,33 @@ class Turn
   end
 
   def end_of_round_report
-    computer_report =  @player_board.cells[@computer_shot].render
-    if computer_report == "X"
+    computer_report
+    player_report
+  end
+
+  def computer_report
+    computer_shot_status =  @player_board.cells[@computer_shot].render
+    if computer_shot_status == "X"
       puts "My shot on #{@computer_shot} sunk your ship."
       @computer_points += 1
-    elsif computer_report == "H"
+    elsif computer_shot_status == "H"
         puts "My shot on #{@computer_shot} was a hit."
         @computer_points += 1
     else
       puts "My shot on #{@computer_shot} was a miss."
     end
-    player_report =  @computer_board.cells[@player_shot].render
-    if player_report == "X"
+  end
+
+  def player_report
+    player_shot_status =  @computer_board.cells[@player_shot].render
+    if player_shot_status == "X"
       @player_points += 1
       puts "Your shot on #{@player_shot} sunk my ship."
-    elsif player_report == "H"
+    elsif player_shot_status == "H"
         puts "Your shot on #{@player_shot} was a hit."
         @player_points += 1
     else
       puts "Your shot on #{@player_shot} was a miss."
-    end
-  end
-
-  def end_game
-    if @player_points == 5 && @computer_points == 5
-      puts "It's tie!"
-    elsif @player_points == 5
-      puts "You won!"
-    elsif @player_points == 5
-      puts "I won!"
-    else
-      round
     end
   end
 end

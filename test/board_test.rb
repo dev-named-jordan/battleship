@@ -5,8 +5,8 @@ require './lib/board'
 class BoardTest < Minitest::Test
 
   def test_it_exists_and_has_attributes
-    #Consider adding an argument to Board for vertical and horizontal dimensions.
     board = Board.new
+
     assert_instance_of Board, board
     assert_equal 16, board.cells.keys.length
     assert_equal Cell, board.cells.values[0].class
@@ -23,7 +23,50 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A22")
   end
 
-  def test_consecutive_letters #Make more tests for larger ships.
+  def test_letter_array
+    board = Board.new
+
+    assert_equal ["A", "A"], board.letter_array(["A1", "A2"])
+    assert_equal ["A", "B", "C"], board.letter_array(["A1", "B2", "C3"])
+  end
+
+  def test_number_array
+    board = Board.new
+
+    assert_equal ["1", "2"], board.number_array(["A1", "A2"])
+    assert_equal ["1", "2", "3"], board.number_array(["A1", "B2", "C3"])
+  end
+
+  def first_two_letters?
+    board = Board.new
+
+    assert_equal true, board.first_two_letters?(["A1", "A2"])
+    assert_equal false, board.first_two_letters?(["A1", "B1"])
+
+  end
+
+  def last_two_letters?
+    board = Board.new
+
+    assert_equal true, board.last_two_letters?(["A1", "A2", "A3"])
+    assert_equal false, board.last_two_letters?(["A1", "B1", "C1"])
+  end
+
+  def first_two_numbers?
+    board = Board.new
+
+    assert_equal true, board.first_two_numbers?(["A1", "B1", "C1"])
+    assert_equal false, board.first_two_numbers?(["A1", "A2", "A3"])
+  end
+
+  def last_two_numbers?
+    board = Board.new
+
+    assert_equal true, board.last_two_numbers?(["A1", "B1", "C1"])
+    assert_equal false, board.last_two_numbers?(["A1", "A2", "A3"])
+  end
+
+  def test_consecutive_letters
     board = Board.new
 
     assert_equal true, board.consecutive_letters?(["A1", "A2"])
