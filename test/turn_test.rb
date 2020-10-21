@@ -14,12 +14,4 @@ class TurnTest < Minitest::Test
     assert_equal 0, turn.computer_points
     assert_equal 0, turn.player_points
   end
-
-  def test_player_shoots
-    turn = Turn.new
-    turn.stubs(:player_shot).returns("A1")
-    turn.player_shoots
-
-    assert_equal
-  end
 end

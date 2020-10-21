@@ -5,16 +5,16 @@ class Turn
               :computer_has_fired_at, :computer_points, :player_points
 
   def initialize
-    @computer_board = Board.new
-    @player_board = Board.new
-    @player_has_fired_at = []
+    @computer_board        = Board.new
+    @player_board          = Board.new
+    @player_has_fired_at   = []
     @computer_has_fired_at = []
-    @computer_points = 0
-    @player_points = 0
-    @computer_cruiser = Ship.new("Cruiser", 3)
-    @computer_submarine = Ship.new("Submarine", 2)
-    @human_cruiser = Ship.new("Cruiser", 3)
-    @human_submarine = Ship.new("Submarine", 2)
+    @computer_points       = 0
+    @player_points         = 0
+    @computer_cruiser      = Ship.new("Cruiser", 3)
+    @computer_submarine    = Ship.new("Submarine", 2)
+    @human_cruiser         = Ship.new("Cruiser", 3)
+    @human_submarine       = Ship.new("Submarine", 2)
   end
 
   def computer_setup

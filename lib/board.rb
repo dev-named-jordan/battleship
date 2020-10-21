@@ -1,7 +1,8 @@
 require './lib/cell'
 
 class Board
-  attr_reader :cells, :occupied_cells
+  attr_reader :cells,
+              :occupied_cells
 
   def initialize
     @cells = {
