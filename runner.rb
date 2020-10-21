@@ -1,3 +1,2 @@
 require './lib/turn'
-turn = Turn.new
-turn.start
+Game.new.start

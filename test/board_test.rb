@@ -23,6 +23,49 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A22")
   end
 
+  def test_letter_array
+    board = Board.new
+
+    assert_equal ["A", "A"], board.letter_array(["A1", "A2"])
+    assert_equal ["A", "B", "C"], board.letter_array(["A1", "B2", "C3"])
+  end
+
+  def test_number_array
+    board = Board.new
+
+    assert_equal ["1", "2"], board.number_array(["A1", "A2"])
+    assert_equal ["1", "2", "3"], board.number_array(["A1", "B2", "C3"])
+  end
+
+  def first_two_letters?
+    board = Board.new
+
+    assert_equal true, board.first_two_letters?(["A1", "A2"])
+    assert_equal false, board.first_two_letters?(["A1", "B1"])
+
+  end
+
+  def last_two_letters?
+    board = Board.new
+
+    assert_equal true, board.last_two_letters?(["A1", "A2", "A3"])
+    assert_equal false, board.last_two_letters?(["A1", "B1", "C1"])
+  end
+
+  def first_two_numbers?
+    board = Board.new
+
+    assert_equal true, board.first_two_numbers?(["A1", "B1", "C1"])
+    assert_equal false, board.first_two_numbers?(["A1", "A2", "A3"])
+  end
+
+  def last_two_numbers?
+    board = Board.new
+
+    assert_equal true, board.last_two_numbers?(["A1", "B1", "C1"])
+    assert_equal false, board.last_two_numbers?(["A1", "A2", "A3"])
+  end
+
   def test_consecutive_letters
     board = Board.new
 

@@ -25,53 +25,63 @@ class Board
     @occupied_cells = []
   end
 
+  def letter_array(coords)
+    coords.map do |coordinate|
+      coordinate[0]
+    end
+  end
+
+  def number_array(coords)
+    coords.map do |coordinate|
+      coordinate[1]
+    end
+  end
+
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
 
   def consecutive_letters?(coordinates)
-    letter_array = coordinates.map do |coordinate|
-      coordinate[0]
-    end
-    "AABBCCDD".include?(letter_array.join) || "ABCD".include?(letter_array.join) ||
-    "AAABBBCCCDDD".include?(letter_array.join) ||
-    "AAAABBBBCCCCDDDD".include?(letter_array.join)
+    "AABBCCDD".include?(letter_array(coordinates).join) || "ABCD".include?(letter_array(coordinates).join) ||
+    "AAABBBCCCDDD".include?(letter_array(coordinates).join) ||
+    "AAAABBBBCCCCDDDD".include?(letter_array(coordinates).join)
   end
 
   def consecutive_numbers?(coordinates)
-    number_array = coordinates.map do |coordinate|
-      coordinate[1]
-    end
-    ("1234".include?(number_array.join) || "11223344".include?(number_array.join) ||
-    "111222333444".include?(number_array.join) ||
-    "1111222233334444".include?(number_array.join))
+    ("1234".include?(number_array(coordinates).join) || "11223344".include?(number_array(coordinates).join) ||
+    "111222333444".include?(number_array(coordinates).join) ||
+    "1111222233334444".include?(number_array(coordinates).join))
+  end
 
+  def first_two_letters?(coordinates)
+    letter_array(coordinates)[0] == letter_array(coordinates)[1]
+  end
+
+  def first_two_numbers?(coordinates)
+    number_array(coordinates)[0] == number_array(coordinates)[1]
+  end
+
+  def last_two_letters?(coordinates)
+    letter_array(coordinates)[1] == letter_array(coordinates)[2]
+  end
+
+  def last_two_numbers?(coordinates)
+    number_array(coordinates)[1] == number_array(coordinates)[2]
   end
 
   def no_diagonals?(coordinates)
-    letter_array = coordinates.map do |coordinate|
-      coordinate[0]
-    end
-    number_array = coordinates.map do |coordinate|
-      coordinate[1]
-    end
-    first_two_letters = letter_array[0] == letter_array[1]
-    first_two_numbers = number_array[0] == number_array[1]
-    if number_array.length == 3
-      last_letters = (letter_array[1] == letter_array[2])
-      last_numbers = (number_array[1] == number_array[2])
-      (first_two_letters == true && last_letters == true) ||
-      (first_two_numbers == true && last_numbers == true)
+    if number_array(coordinates).length == 3
+      (first_two_letters?(coordinates) && last_two_letters?(coordinates)) ||
+      (first_two_numbers?(coordinates) && last_two_numbers?(coordinates))
     else
-      first_two_letters == true || first_two_numbers == true
+      first_two_letters?(coordinates) || first_two_numbers?(coordinates)
     end
   end
 
   def valid_placement?(vessel, coordinates)
-    vessel.length == coordinates.length &&
-    (consecutive_numbers?(coordinates) &&
-    consecutive_letters?(coordinates)) &&
-    no_diagonals?(coordinates) && no_overlapping?(coordinates)
+    vessel.length == coordinates.length &&(consecutive_numbers?(coordinates) &&
+    consecutive_letters?(coordinates))  && no_diagonals?(coordinates)        &&
+    no_overlapping?(coordinates)
   end
 
   def place(ship, coordinates)
